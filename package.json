@@ -1,0 +1,14 @@
+{
+  "name": "orders-api",
+  "version": "1.2.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "prom-client": "15.1.3"
+  }
+}

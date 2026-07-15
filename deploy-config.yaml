@@ -1,0 +1,62 @@
+# Per-repository delivery contract for orders-api.
+#
+# This repository is deliberately unlike sample-app: Node instead of Python,
+# port 3000 instead of 8080, a single replica, a different registry path, and a
+# smoke test against a business endpoint rather than /health. It consumes the
+# same shared library with no modification to that library — which is the point.
+schemaVersion: 1
+
+app:
+  name: orders-api
+  version: "1.2.0"
+  imageRepo: finacplus/orders-api
+  port: 3000
+
+registry:
+  host: localhost:5001
+
+build:
+  context: .
+  dockerfile: Dockerfile
+
+test:
+  commands:
+    - "npm test"
+
+security:
+  trivy:
+    enabled: true
+    severity: "HIGH,CRITICAL"
+    ignoreUnfixed: true
+    failOnFindings: false
+
+manifests:
+  path: k8s
+  files:
+    - deployment.yaml
+
+environments:
+  - name: staging
+    cluster: kind-staging
+    namespace: demo
+    replicas: 1
+    credentialId: kubeconfig-staging
+    branches: ["main"]
+    autoDeploy: true
+    smokeTest:
+      path: /api/orders
+      expectStatus: 200
+
+  - name: prod
+    cluster: kind-prod
+    namespace: demo
+    replicas: 1
+    credentialId: kubeconfig-prod
+    branches: ["main"]
+    autoDeploy: false
+    approval:
+      required: true
+      timeoutMinutes: 15
+    smokeTest:
+      path: /api/orders
+      expectStatus: 200
