@@ -20,6 +20,8 @@ build:
   dockerfile: Dockerfile
 
 test:
+  image: "node:22-slim"
+  setup: "npm install --no-audit --no-fund"
   commands:
     - "npm test"
 
