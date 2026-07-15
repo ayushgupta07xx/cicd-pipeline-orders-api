@@ -21,7 +21,7 @@ build:
 
 test:
   image: "node:22-slim"
-  setup: "npm install --no-audit --no-fund"
+  setup: "echo === WORKSPACE === && pwd && ls -la && echo === TEST DIR === && ls -la test/ ; npm install --no-audit --no-fund"
   commands:
     - "npm test"
 
