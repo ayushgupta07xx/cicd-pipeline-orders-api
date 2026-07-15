@@ -38,7 +38,7 @@ test('metrics endpoint exposes prometheus exposition format', async () => {
   const r = await request('/metrics');
   assert.strictEqual(r.status, 200);
   assert.match(r.body, /app_build_info/);
-  assert.match(r.body, /http_requests_total|process_cpu/);
+  assert.match(r.body, /process_cpu|http_requests_total/);
 });
 
 test('orders endpoint returns a list', async () => {
