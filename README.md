@@ -1,5 +1,7 @@
 # cicd-pipeline-orders-api
 
+**[▶ Watch the walkthrough](https://youtu.be/8HLydMg_BCg)** — 9 minutes, recorded from live output.
+
 A Node/Express service deployed by the
 [shared delivery pipeline](https://github.com/ayushgupta07xx/cicd-pipeline-shared-library).
 
